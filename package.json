@@ -1,6 +1,8 @@
 {
     "name": "entrance"
   , "version": "0.0.1"
+  , "description": "Lightweight node.js request router"
+  , "author": "Patrick Lodder <patrick.lodder@intellibiz.org>",
   , "engines": {
         "node": ">=0.4.6"
   }
