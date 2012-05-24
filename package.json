@@ -1,0 +1,8 @@
+{
+    "name": "entrance"
+  , "version": "0.0.1"
+  , "engines": {
+        "node": ">=0.4.6"
+  }
+  , "dependencies": {}
+}
