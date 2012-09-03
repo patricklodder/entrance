@@ -68,7 +68,7 @@ util.inherits(Entrance, events.EventEmitter);
 
 Entrance.Log = function (req) {
 	try { 
-		console.log(req.connection.remoteAddress + ' - ' + req.method + ' ' + req.url);
+		console.log(req.headers['x-forwarded-for'] || req.connection.remoteAddress + ' - ' + req.method + ' ' + req.url);
 	} catch (e) { 
 		// do nothing
 	}
