@@ -59,12 +59,20 @@ function Route (method, route, controller) {
 }
 
 function Entrance (options) {
-	this.options = options;
+	this.options = options || {};
 	this.routes = {all: {}};
 	this.callback = function(){};
 }
 
 util.inherits(Entrance, events.EventEmitter);
+
+Entrance.Log = function (req) {
+	try { 
+		console.log(req.connection.remoteAddress + ' - ' + req.method + ' ' + req.url);
+	} catch (e) { 
+		// do nothing
+	}
+};
 
 Entrance.prototype.add = function (method, route, controller, strict) {
 	var r = new Route(method, route, controller);
@@ -79,6 +87,8 @@ Entrance.prototype.add = function (method, route, controller, strict) {
 };
 
 Entrance.prototype.dispatch = function (req, res, cb) {
+	if (this.options.logging) Entrance.Log(req);
+		
 	var chunks = [], transaction = new Transaction(req, res, this.callback);
 	req.on('data', function (c) { 
 		chunks.push(c);
