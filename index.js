@@ -89,13 +89,13 @@ Entrance.prototype.add = function (method, route, controller, strict) {
 Entrance.prototype.dispatch = function (req, res, cb) {
 	if (this.options.logging) Entrance.Log(req);
 		
-	var chunks = [], transaction = new Transaction(req, res, this.callback);
+	var chunks = [], transaction = new Transaction(req, res, this.callback), that = this;
 	
 	req.on('data', function (c) { 
 		chunks.push(c);
 	});
 	req.on('end', function () {
-		transaction.setReqData(chunks, (chunks.length > 0 && !this.options.noParse) ? qs.parse(chunks.join('')) : {});
+		transaction.setReqData(chunks, (chunks.length > 0 && !that.options.noParse) ? qs.parse(chunks.join('')) : {});
 	});
 	
 	if (cb) this.callback = cb;
